@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snow Report API</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>Buck's Snow Report</h1>
+    <nav class="navigation">
+        <a href='index.html'>Snow Report</a>
+        <a href='weather.html'>Weather</a>
+    </nav>
+</header>
+
+    <div class="container"></div>
+        <h2>Snow Report</h2>
+        <form id="js-form">
+            <label for="js-state">State(ex. 'CO' or 'UT')</label>
+            <input type="text" name="state" id="js-state">
+
+            <label for="js-resort">Resort Name(ex. 'Vail', 'Stratton'</label>
+            <input type="text" name="resort-name" id="js-resort-name">
+
+            <input type="submit" value="Show me the snow!">
+        </form>
+
+        <p id="js-error-message" class="error-message"></p>
+        <section id="results" class="hidden">
+          <h2>Search results</h2>
+          <ul id="snow-results-list">
+          </ul>
+        </section>
+    </div>
+
+
+    <div class="container">
+        <h2>Weather</h2>
+        <form id="js-form">
+            <label for="js-city">City</label>
+            <input type="text" name="city" id="js-city">
+
+            <input type="submit" value="Go!">
+        </form>
+
+        <p id="js-error-message" class="error-message"></p>
+        <section id="results" class="hidden">
+         
+        </section>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+</html>
