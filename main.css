@@ -18,6 +18,10 @@
     max-width: 600px;
     margin: 0 auto;
   }
+
+  ul {
+    list-style: none;
+  }
   
   .error-message {
       color: red;

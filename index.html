@@ -20,14 +20,15 @@
 
     <div class="container"></div>
         <h2>Snow Report</h2>
-        <form id="js-form">
+        <form id="js-snow-form">
+        <!---
             <label for="js-state">State(ex. 'CO' or 'UT')</label>
             <input type="text" name="state" id="js-state">
+            <input type="submit" id="state-snow" value="Show me the snow!"> -->
 
             <label for="js-resort">Resort Name(ex. 'Vail', 'Stratton'</label>
             <input type="text" name="resort-name" id="js-resort-name">
-
-            <input type="submit" value="Show me the snow!">
+            <input type="submit" id="resort-snow" value="Show me the snow!">
         </form>
 
         <p id="js-error-message" class="error-message"></p>
@@ -35,22 +36,6 @@
           <h2>Search results</h2>
           <ul id="snow-results-list">
           </ul>
-        </section>
-    </div>
-
-
-    <div class="container">
-        <h2>Weather</h2>
-        <form id="js-form">
-            <label for="js-city">City</label>
-            <input type="text" name="city" id="js-city">
-
-            <input type="submit" value="Go!">
-        </form>
-
-        <p id="js-error-message" class="error-message"></p>
-        <section id="results" class="hidden">
-         
         </section>
     </div>
 
