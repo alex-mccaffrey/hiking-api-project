@@ -5,6 +5,12 @@
   body {
     font-family: 'Roboto', sans-serif;
   }
+
+  .title-link {
+    font-style: none;
+    color: black;
+    text-decoration: none;
+  }
   
   button, input[type="text"] {
     padding: 5px;

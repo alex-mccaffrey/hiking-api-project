@@ -4,38 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Snow Report API</title>
+    <title>Tectonic MVMT</title>
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
 <header>
-    <h1>Buck's Snow Report</h1>
+    <a href="index.html" class="title-link"><h1>Tectonic MVMT</h1></a>
     <nav class="navigation">
-        <a href='index.html'>Snow Report</a>
+        <a href='index.html'>Hiking Trails</a>
         <a href='weather.html'>Weather</a>
     </nav>
 </header>
 
     <div class="container"></div>
-        <h2>Snow Report</h2>
-        <form id="js-snow-form">
-        <!---
-            <label for="js-state">State(ex. 'CO' or 'UT')</label>
-            <input type="text" name="state" id="js-state">
-            <input type="submit" id="state-snow" value="Show me the snow!"> -->
-
-            <label for="js-resort">Resort Name(ex. 'Vail', 'Stratton'</label>
-            <input type="text" name="resort-name" id="js-resort-name">
-            <input type="submit" id="resort-snow" value="Show me the snow!">
+        <h2>Hiking Trails</h2>
+        <form id="js-trail-form">
+            <label for="js-hike-city">City, State(ex. 'Denver, CO')</label>
+            <input type="text" name="hike-city" id="js-hike-city">
+            <input type="submit" id="hike-city" value="Let's Go!">
         </form>
 
         <p id="js-error-message" class="error-message"></p>
-        <section id="results" class="hidden">
+        <section id="trail-results" class="hidden">
           <h2>Search results</h2>
-          <ul id="snow-results-list">
+          <ul id="trail-results-list">
           </ul>
+        </section>
+
+        <h2>Weather</h2>
+        <p id="js-error-message" class="error-message"></p>
+        <section id="weather-results" class="hidden">
+         
         </section>
     </div>
 
