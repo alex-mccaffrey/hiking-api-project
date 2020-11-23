@@ -1,81 +1,6 @@
 'use strict';
 
 
-//***** Snow Report API *******//
-/*const apiKey = 'SnoCountry.example'; 
-const searchURL = 'http://feeds.snocountry.net/conditions.php';
-
-
-function formatQueryParams(params) {
-  const queryItems = Object.keys(params)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-  return queryItems.join('&');
-}
-
-function displaySnow(responseJson) {
-  // if there are previous results, remove them
-  console.log("displaying snow");
-  console.log(responseJson);
-  $('#snow-results-list').empty();
-  // iterate through the items array
-  for (let i = 0; i < responseJson.items.length; i++){
-    $('#snow-results-list').append(
-      `<li><h3>${responseJson.items[i].resortName}</h3>
-      <p>Average Base Depth: ${responseJson.items[i].avgBaseDepthMax}</p>
-      <p>Today's High Temp: ${responseJson.items[i].weatherToday_Temperature_High}</p>
-      <p>Total Acres Open: ${responseJson.items[i].openDownHillAcres}</p>
-      <p>Address: ${responseJson.items[i].resortAddress}</p>
-      <a href="${responseJson.items[i].resortCovidPage}" target="_blank">COVID Info</a>
-      </li>`
-    )};
-  //display the results section  
-  $('#results').removeClass('hidden');
-};
-
-function getSnow(state) {
-  console.log('getting snow');
-  const params = {
-    //regions: resort,
-    apiKey: apiKey,
-    states: state,
-    resortType: 'Alpine',
-    updatesOnly: true,
-  };
-  const queryString = formatQueryParams(params)
-  const url = searchURL + '?' + queryString;
-
-  console.log(url);
-
-  fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(response.statusText);
-    })
-    .then(responseJson => displaySnow(responseJson))
-    .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
-    });
-}
-
-function snowForm() {
-  $('#js-snow-form').submit(event => {
-    console.log('submitting');
-    event.preventDefault();
-    const state = $('#js-state').val();
-    //const resort = $('#js-resort-name').val();
-    console.log(state);
-    getSnow(state);
-    $("#js-snow-form")[0].reset();
-  });
-}
-
-$(snowForm);/*
-
-
-
-
 /**** Hiking Trails API *****/
 
 
@@ -91,28 +16,20 @@ function formatTrailParams(params) {
 
 function displayTrails(responseJson) {
   console.log(responseJson);
-  $('#weather-results').empty();
-    $('#weather-results').append(
-      `<h3>${responseJson.location.name}, ${responseJson.location.region}</h3>
-      <p>Current Condition: ${responseJson.current.condition.text}</p>
-      <p>Feels Like ${responseJson.current.feelslike_f}ºF</p>
-      <p>Wind Speed: ${responseJson.current.wind_mph}mph</p>
-      <p>Last updated at ${responseJson.current.last_updated}</p>`
+  $('#trail-results').empty();
+    $('#trail-results').append(
+      responseJson.trails.map(trail => `<h3>${trail.name}</h3> <p>${trail.summary}</p>`)
     ); 
-  $('#weather-results').removeClass('hidden');
+  $('#trail-results').removeClass('hidden');
 };
 
-function locationLatLon(){
-
-}
 
 
-
-function getTrails(city) {
+function getTrails(latitude, longitude) {
   console.log('getting trails');
   const params = {
-    lat: '',
-    lon: '',
+    lat: latitude,
+    lon: longitude,
     key: trailKey,
   };
   const queryString = formatTrailParams(params)
@@ -127,7 +44,7 @@ function getTrails(city) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayWeather(responseJson))
+    .then(responseJson => displayTrails(responseJson))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
     });
@@ -138,17 +55,12 @@ function trailForm() {
     event.preventDefault();
     const city = $('#js-hike-city').val();
     getWeather(city);
-    getTrails(city);
+    //getTrails(city);
     $("#js-trail-form")[0].reset();
   });
 }
 
 $(trailForm());
-
-
-
-
-
 
 
 
@@ -166,14 +78,19 @@ function formatWeatherParams(params) {
 
 function displayWeather(responseJson) {
   console.log(responseJson);
+  getTrails(responseJson.location.lat, responseJson.location.lon);
+  if (responseJson.alert !== undefined){
+    $('#weather-results').append(
+      `<p>Alert: ${responseJson.alert.headline}</p>`
+    )};
   $('#weather-results').empty();
     $('#weather-results').append(
       `<h3>${responseJson.location.name}, ${responseJson.location.region}</h3>
-      <p>Current Condition: ${responseJson.current.condition.text}</p>
+      <p>Current Condition: ${responseJson.current.condition.text} <img src="https://${responseJson.current.condition.icon.substring(2)}"/> </p>
       <p>Feels Like ${responseJson.current.feelslike_f}ºF</p>
       <p>Wind Speed: ${responseJson.current.wind_mph}mph</p>
-      <p>Last updated at ${responseJson.current.last_updated}</p>`
-    ); 
+      <p>Last updated at ${responseJson.current.last_updated}</p>`)
+      
   $('#weather-results').removeClass('hidden');
 };
 
@@ -201,16 +118,6 @@ function getWeather(city) {
     });
 }
 
-function weatherForm() {
-  $('#js-weather-form').submit(event => {
-    event.preventDefault();
-    const city = $('#js-city').val();
-    getWeather(city);
-    $("#js-weather-form")[0].reset();
-  });
-}
-
-$(weatherForm);
 
 
 
