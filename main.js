@@ -18,7 +18,12 @@ function displayTrails(responseJson) {
   console.log(responseJson);
   $('#trail-results').empty();
     $('#trail-results').append(
-      responseJson.trails.map(trail => `<h3>${trail.name}</h3> <p>${trail.summary}</p> <p>Trail Rating: ${trail.difficulty}</p> <img src="${trail.imgSmall}"/>`)
+      responseJson.trails.map(trail => 
+        `<h3>${trail.name}</h3> <p>${trail.summary}</p> 
+        <p>Trail Rating: ${trail.difficulty}</p> <img src="${trail.imgSmall}"/>
+        <p>Elevation: ${trail.low}ft to ${trail.high}ft</p>
+        <a href="${trail.url}" target="_blank" >More Info</a>
+        `)
     ); 
   $('#trail-results').removeClass('hidden');
 };
@@ -104,6 +109,8 @@ function displayWeather(responseJson) {
       <p>Feels Like ${responseJson.current.feelslike_f}ºF</p>
       <p>Wind Speed: ${responseJson.current.wind_mph}mph</p>
       <p>Last updated at ${responseJson.current.last_updated}</p>`)
+    $('#weather-icon').empty();
+    $('#weather-icon').append(`<img src="https://${responseJson.current.condition.icon.substring(2)}"/>`)
       
   $('#weather-results').removeClass('hidden');
 };

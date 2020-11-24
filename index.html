@@ -9,15 +9,18 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+<div class="background"></div>
 
 <header>
     <a href="index.html" class="title-link"><h1>Tectonic MVMT</h1></a>
+    <div id='weather-icon'></div>
 </header>
 
-    <div class="container"></div>
+    <div class="container">
+        <div class="form">
         <h2>Where do you want to go?</h2>
         <form id="js-trail-form">
-            <label for="js-hike-city">City, State or Zipcode(ex. 'Boulder, CO' or '80301')</label>
+            <label for="js-hike-city">City, State or Zipcode (ex. 'Boulder, CO' or '80301')</label>
             <br>
             <input type="text" name="hike-city" id="js-hike-city">
             <br>
@@ -36,7 +39,8 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
                 </select>
-
+        <br>
+        <br>
             <label for="min-length">Minimum Length (in miles)</label>
                 <select name="min-length" id="min-length">
                 <option value="0">0 Miles</option>
@@ -51,10 +55,13 @@
             <label for="quality">Quality</label><br>
             <input type="radio" id="distance" name="sort-trails" value="distance">
             <label for="distance">Distance</label>
-            </div>
             <br>
+        </div>
             <input type="submit" id="hike-city" value="Let's Go!">
         </form>
+        </div>  
+
+        <div class="weather-trails">
         <h2>Hiking Trails</h2>
         <p id="js-error-message" class="error-message"></p>
         <section id="trail-results" class="hidden">
@@ -68,8 +75,8 @@
         <section id="weather-results" class="hidden">
          
         </section>
+        </div>
     </div>
-
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
