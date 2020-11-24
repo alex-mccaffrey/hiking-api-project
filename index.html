@@ -12,20 +12,50 @@
 
 <header>
     <a href="index.html" class="title-link"><h1>Tectonic MVMT</h1></a>
-    <nav class="navigation">
-        <a href='index.html'>Hiking Trails</a>
-        <a href='weather.html'>Weather</a>
-    </nav>
 </header>
 
     <div class="container"></div>
-        <h2>Hiking Trails</h2>
+        <h2>Where do you want to go?</h2>
         <form id="js-trail-form">
-            <label for="js-hike-city">City, State(ex. 'Denver, CO')</label>
+            <label for="js-hike-city">City, State or Zipcode(ex. 'Boulder, CO' or '80301')</label>
+            <br>
             <input type="text" name="hike-city" id="js-hike-city">
+            <br>
+            <h3>Personlize Your Results</h3>
+            <div class="filters">
+            <label for="num-results">Number of Trails</label>
+                <select name="num-results" id="num-results">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                </select>
+
+            <label for="min-length">Minimum Length (in miles)</label>
+                <select name="min-length" id="min-length">
+                <option value="0">0 Miles</option>
+                <option value="2">2 Miles</option>
+                <option value="4">4 Miles</option>
+                <option value="6">6 Miles</option>
+                <option value="8">8 Miles</option>
+                <option value="10">10+ Miles</option>
+                </select>
+            <p>Sort by (quality by default):</p>
+            <input type="radio" id="quality" name="sort-trails" value="quality">
+            <label for="quality">Quality</label><br>
+            <input type="radio" id="distance" name="sort-trails" value="distance">
+            <label for="distance">Distance</label>
+            </div>
+            <br>
             <input type="submit" id="hike-city" value="Let's Go!">
         </form>
-
+        <h2>Hiking Trails</h2>
         <p id="js-error-message" class="error-message"></p>
         <section id="trail-results" class="hidden">
           <h2>Search results</h2>

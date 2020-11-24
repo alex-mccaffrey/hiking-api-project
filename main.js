@@ -18,18 +18,33 @@ function displayTrails(responseJson) {
   console.log(responseJson);
   $('#trail-results').empty();
     $('#trail-results').append(
-      responseJson.trails.map(trail => `<h3>${trail.name}</h3> <p>${trail.summary}</p>`)
+      responseJson.trails.map(trail => `<h3>${trail.name}</h3> <p>${trail.summary}</p> <p>Trail Rating: ${trail.difficulty}</p> <img src="${trail.imgSmall}"/>`)
     ); 
   $('#trail-results').removeClass('hidden');
 };
 
 
+function sortTrails() {
+  let selected= $("input[type='radio'][name='sort-trails']:checked");
+    let selectedAnswer="";
+    if (selected.length > 0) {
+        selectedAnswer = selected.val();
+        return selectedAnswer;
+    }
+};
+
+
 
 function getTrails(latitude, longitude) {
-  console.log('getting trails');
+  const numTrails = $('#num-results').val();
+  const sortBy = sortTrails();
+  const length = $('#min-length').val();
   const params = {
     lat: latitude,
     lon: longitude,
+    maxResults: numTrails,
+    sort: sortBy,
+    minLength: length,
     key: trailKey,
   };
   const queryString = formatTrailParams(params)
@@ -55,8 +70,7 @@ function trailForm() {
     event.preventDefault();
     const city = $('#js-hike-city').val();
     getWeather(city);
-    //getTrails(city);
-    $("#js-trail-form")[0].reset();
+    //$("#js-trail-form")[0].reset();
   });
 }
 
@@ -117,8 +131,6 @@ function getWeather(city) {
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
     });
 }
-
-
 
 
 
