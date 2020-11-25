@@ -102,12 +102,19 @@ function displayWeather(responseJson) {
     $('#weather-results').append(
       `<p>Alert: ${responseJson.alert.headline}</p>`
     )};
+  $('#js-error-message').empty();
   $('#weather-results').empty();
     $('#weather-results').append(
       `<h3>${responseJson.location.name}, ${responseJson.location.region}</h3>
+      <h4>Today:</h4>
       <p>Current Condition: ${responseJson.current.condition.text} <img src="https://${responseJson.current.condition.icon.substring(2)}"/> </p>
       <p>Feels Like ${responseJson.current.feelslike_f}ºF</p>
       <p>Wind Speed: ${responseJson.current.wind_mph}mph</p>
+      <br>
+      <h4>Tomorrow:</h4> <p>Condition: ${responseJson.forecast.forecastday[0].day.condition.text}
+      <br>Low of ${responseJson.forecast.forecastday[0].day.mintemp_f}ºF
+      <br>High of ${responseJson.forecast.forecastday[0].day.maxtemp_f}ºF</p>
+      <br>
       <p>Last updated at ${responseJson.current.last_updated}</p>`)
     $('#weather-icon').empty();
     $('#weather-icon').append(`<img src="https://${responseJson.current.condition.icon.substring(2)}"/>`)

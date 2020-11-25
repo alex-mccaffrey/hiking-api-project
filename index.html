@@ -17,15 +17,16 @@
 </header>
 
     <div class="container">
-        <div class="form">
+        
         <h2>Where do you want to go?</h2>
+        <div class="form"></div>
         <form id="js-trail-form">
             <label for="js-hike-city">City, State or Zipcode (ex. 'Boulder, CO' or '80301')</label>
             <br>
             <input type="text" name="hike-city" id="js-hike-city">
             <br>
             <h3>Personlize Your Results</h3>
-            <div class="filters">
+        <div class="filters">
             <label for="num-results">Number of Trails</label>
                 <select name="num-results" id="num-results">
                 <option value="1">1</option>
@@ -39,8 +40,7 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
                 </select>
-        <br>
-        <br>
+   
             <label for="min-length">Minimum Length (in miles)</label>
                 <select name="min-length" id="min-length">
                 <option value="0">0 Miles</option>
@@ -50,6 +50,7 @@
                 <option value="8">8 Miles</option>
                 <option value="10">10+ Miles</option>
                 </select>
+
             <p>Sort by (quality by default):</p>
             <input type="radio" id="quality" name="sort-trails" value="quality">
             <label for="quality">Quality</label><br>
@@ -62,6 +63,7 @@
         </div>  
 
         <div class="weather-trails">
+            <div class="trails">
         <h2>Hiking Trails</h2>
         <p id="js-error-message" class="error-message"></p>
         <section id="trail-results" class="hidden">
@@ -69,12 +71,14 @@
           <ul id="trail-results-list">
           </ul>
         </section>
+        </div>
 
-        <h2>Weather</h2>
+        <div class="weather">
+        <h2>Weather</h2><br>
         <p id="js-error-message" class="error-message"></p>
         <section id="weather-results" class="hidden">
-         
         </section>
+        </div>
         </div>
     </div>
 

@@ -46,7 +46,7 @@
     align-self: right;
   }
 
-  /*.container {
+  .container {
     position: relative;
     background-color: white;
     z-index: 1;
@@ -55,7 +55,7 @@
     border-radius: 10px;
     max-width: 90%;
     margin: 0 auto;
-  }*/
+  }
 
   .form {
     display: flex;
@@ -65,19 +65,55 @@
     flex-direction: column;
   }
 
+  h2 {
+    text-align: center;
+  }
+
 
 
   .filters {
     display: flex;
-    z-index: 2;
-    position: relative;
-    opacity: 1;
     flex-direction: column;
+    align-content: center;
+    align-items: center;
   }
 
   .weather-trails {
+    position: relative;
+    background-color: white;
+    z-index: 1;
+    opacity: .8;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 90%;
+    margin: auto;
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #trail-results p {
+    width: 50%;
+  }
+
+  /*div .trails .weather {
+    display: inline;
+    justify-content: center;
+  }*/
+
+  section {
+    margin: 30px;
+  }
+
+  select {
+    height: 25px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+  }
+
+  section {
+    align-content: space-around;
   }
 
 
@@ -106,6 +142,7 @@
   ul {
     list-style: none;
   }
+
   
   .error-message {
       color: red;
@@ -120,15 +157,7 @@
 
 
   @media all and (min-width: 600px){
-    .weather-trails {
-      flex-direction: row;
-    }
-
-    .form {
-      flex-direction: row;
-    }
-
-    .filters {
+    .weather-trails, .form, .filters {
       flex-direction: row;
     }
      
