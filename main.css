@@ -9,6 +9,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     z-index: 0; 
+    margin: 20px; padding: 0;
   }
 
   /*.background {
@@ -48,9 +49,8 @@
 
   .container {
     position: relative;
-    background-color: white;
+    background-color: rgba(243, 242, 242, 0.76);
     z-index: 1;
-    opacity: .8;
     padding: 10px;
     border-radius: 10px;
     max-width: 90%;
@@ -80,29 +80,31 @@
   }
 
   .weather-trails {
-    position: relative;
-    background-color: white;
-    z-index: 1;
-    opacity: .8;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgba(243, 242, 242, 0.76);
     padding: 10px;
     border-radius: 10px;
     max-width: 90%;
     margin: auto;
     margin-top: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 
+.trails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 62%;
+}
 
-
-  #trail-results p {
+  /*#trail-results {
     width: 62%;
-  }
-
+  }*/
 
   section {
     margin: 30px;
+    align-content: space-around;
   }
 
   select {
@@ -111,9 +113,18 @@
     margin-bottom: 10px;
   }
 
-  section {
-    align-content: space-around;
+
+
+  #map {
+    position: relative;
+    z-index: 4;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 300px;
+    margin: 20px auto;
+    min-height: 300px;
   }
+
 
 
   label {
@@ -161,4 +172,9 @@
       flex-direction: row;
     }
      
+    #map {
+      min-height: 400px;
+      min-width: 400px;
+      max-width: 600px;
+    }
  }
