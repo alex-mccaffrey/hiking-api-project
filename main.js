@@ -23,8 +23,15 @@ function displayTrails(responseJson) {
         <p>Trail Rating: ${trail.difficulty}</p> <img src="${trail.imgSmall}"/>
         <p>Elevation: ${trail.low}ft to ${trail.high}ft</p>
         <a href="${trail.url}" target="_blank">More Info</a>
-        <a href="#map">Map it!</a>`)
-    ); 
+        <p class='coordinates'>Coordinates: ${trail.latitude} ${trail.longitude}</p>
+        <button type='button' id='map-button'>Map it!</button>
+        <a href="#map">Map it!</a>`  
+    ))
+    const long = responseJson.trails.map(trail => trail.longitude)
+    const lat = responseJson.trails.map(trail => trail.latitude)
+    const longLat = long.concat(lat);
+    //dropMarker(longLat);
+    handleMapIt(longLat);
   $('#trail-results').removeClass('hidden');
 };
 
@@ -75,8 +82,6 @@ function trailForm() {
     event.preventDefault();
     const city = $('#js-hike-city').val();
     getWeather(city);
-    getLocation();
-    //$("#js-trail-form")[0].reset();
   });
 }
 
@@ -158,23 +163,49 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYW1jY2FmZjA3IiwiYSI6ImNraHhrYThyeTAyc3oycG4wM
 var map = new mapboxgl.Map({
 container: 'map', // container id
 style: 'mapbox://styles/mapbox/streets-v11',
-center: [-105.150, 39.813], // starting position
-zoom: 9 // starting zoom
+center: [-98.5795,39.8283], // starting position
+zoom: 3 // starting zoom
 });
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 
+/*var marker = new mapboxgl.Marker()
+.setLngLat([-106.3865, 39.6177])
+.addTo(map);*/
 
 
-function getLocation() {
 
+function dropMarker(longLat) {
+  var marker = new mapboxgl.Marker()
+  .setLngLat(longLat)
+  .addTo(map);
+}
+
+function handleMapIt(longLat) {
+  $('#map-button').click( event => {
+    event.preventDefault();
+    console.log('clicked');
+    console.log(longLat)
+    dropMarker(longLat);
+    //getCoordinates();
+});
+}
+
+/*function getCoordinates(long, lat){
+    const long = responseJson.trails.map(trail => trail.longitude)
+    const lat = responseJson.trails.map(trail => trail.latitude)
+    console.log(long, lat)
+    dropMarker(long, lat)
+}*/
+
+
+/*function getLocation() {\
   //const queryString = formatMapParams(params)
   const url = locationUrl + 'access_token=' + mapKey;
-
   fetch(url)
     .then(response => {
     then(responseJson => console.log(responseJson))
     .catch(err => {
     })
   })
-}
+}*/

@@ -49,7 +49,7 @@
 
   .container {
     position: relative;
-    background-color: rgba(243, 242, 242, 0.76);
+    background-color: rgba(243, 242, 242, 0.88);
     z-index: 1;
     padding: 10px;
     border-radius: 10px;
@@ -83,7 +83,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: rgba(243, 242, 242, 0.76);
+    background-color: rgba(243, 242, 242, 0.88);
     padding: 10px;
     border-radius: 10px;
     max-width: 90%;
@@ -95,7 +95,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 62%;
+  max-width: 40%;
 }
 
   /*#trail-results {
@@ -131,6 +131,23 @@
     margin-right: 5px;
   }
 
+  a:hover {
+    color: red;
+  }
+
+  a:visited {
+    color: purple;
+  }
+
+  a:link {
+    color: royalblue;
+    font-weight: bold;
+  }
+
+  a:active {
+    color: red;
+  }
+
   .title-link {
     font-style: none;
     color: black;
@@ -146,9 +163,9 @@
     padding: 20px;
   }
   
-  button:hover {
+  /*button:hover {
     cursor: crosshair;
-  }
+  }*/
 
   ul {
     list-style: none;
