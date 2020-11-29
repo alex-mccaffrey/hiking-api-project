@@ -17,32 +17,28 @@ function formatTrailParams(params) {
 function displayTrails(responseJson) {
   console.log(responseJson);
   $('#trail-results').empty();
-    $('#trail-results').append(
-      responseJson.trails.map(trail => 
-        `<h3>${trail.name}</h3> <p>${trail.summary}</p> 
+  $('#trail-results').append(
+    responseJson.trails.map(trail =>
+      `<h3>${trail.name}</h3> <p>${trail.summary}</p> 
         <p>Trail Rating: ${trail.difficulty}</p> <img src="${trail.imgSmall}"/>
         <p>Elevation: ${trail.low}ft to ${trail.high}ft</p>
         <a href="${trail.url}" target="_blank">More Info</a>
-        <p class='coordinates'>Coordinates: ${trail.latitude} ${trail.longitude}</p>
-        <button type='button' id='map-button'>Map it!</button>
-        <a href="#map">Map it!</a>`  
+        <p class='coordinates'>Coordinates: 
+        <button type='button' id='mapit-button'>${trail.latitude} ${trail.longitude}</button></p>`,
     ))
-    const long = responseJson.trails.map(trail => trail.longitude)
-    const lat = responseJson.trails.map(trail => trail.latitude)
-    const longLat = long.concat(lat);
-    //dropMarker(longLat);
-    handleMapIt(longLat);
+  //getCoordinates(responseJson);
+  handleMapIt(responseJson);
   $('#trail-results').removeClass('hidden');
 };
 
 
 function sortTrails() {
-  let selected= $("input[type='radio'][name='sort-trails']:checked");
-    let selectedAnswer="";
-    if (selected.length > 0) {
-        selectedAnswer = selected.val();
-        return selectedAnswer;
-    }
+  let selected = $("input[type='radio'][name='sort-trails']:checked");
+  let selectedAnswer = "";
+  if (selected.length > 0) {
+    selectedAnswer = selected.val();
+    return selectedAnswer;
+  }
 };
 
 
@@ -91,7 +87,7 @@ $(trailForm());
 
 //***** Weather API *******/
 
-const weatherKey = '9fc52be9eec442ba9de25202202011'; 
+const weatherKey = '9fc52be9eec442ba9de25202202011';
 const weatherUrl = 'https://api.weatherapi.com/v1/forecast.json';
 
 
@@ -104,14 +100,15 @@ function formatWeatherParams(params) {
 function displayWeather(responseJson) {
   console.log(responseJson);
   getTrails(responseJson.location.lat, responseJson.location.lon);
-  if (responseJson.alert !== undefined){
+  if (responseJson.alert !== undefined) {
     $('#weather-results').append(
       `<p>Alert: ${responseJson.alert.headline}</p>`
-    )};
+    )
+  };
   $('#js-error-message').empty();
   $('#weather-results').empty();
-    $('#weather-results').append(
-      `<h3>${responseJson.location.name}, ${responseJson.location.region}</h3>
+  $('#weather-results').append(
+    `<h3>${responseJson.location.name}, ${responseJson.location.region}</h3>
       <h4>Today:</h4>
       <p>Current Condition: ${responseJson.current.condition.text} <img src="https://${responseJson.current.condition.icon.substring(2)}"/> </p>
       <p>Feels Like ${responseJson.current.feelslike_f}ºF</p>
@@ -122,9 +119,9 @@ function displayWeather(responseJson) {
       <br>High of ${responseJson.forecast.forecastday[0].day.maxtemp_f}ºF</p>
       <br>
       <p>Last updated at ${responseJson.current.last_updated}</p>`)
-    $('#weather-icon').empty();
-    $('#weather-icon').append(`<img src="https://${responseJson.current.condition.icon.substring(2)}"/>`)
-      
+  $('#weather-icon').empty();
+  $('#weather-icon').append(`<img src="https://${responseJson.current.condition.icon.substring(2)}"/>`)
+
   $('#weather-results').removeClass('hidden');
 };
 
@@ -156,56 +153,42 @@ function getWeather(city) {
 
 //***** Map API *******//
 const directionsUrl = 'https://api.mapbox.com/directions/v5/mapbox/driving';
-const locationUrl ='https://api.mapbox.com/geocoding/v5/mapbox.places/-105.1504,39.8130.json?'
+const locationUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/-105.1504,39.8130.json?'
 const mapKey = 'pk.eyJ1IjoiYW1jY2FmZjA3IiwiYSI6ImNraHhrYThyeTAyc3oycG4wMG40dW5uZGkifQ.yLgQA1X2chc0tTtVLbUE7Q'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW1jY2FmZjA3IiwiYSI6ImNraHhrYThyeTAyc3oycG4wMG40dW5uZGkifQ.yLgQA1X2chc0tTtVLbUE7Q';
 var map = new mapboxgl.Map({
-container: 'map', // container id
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [-98.5795,39.8283], // starting position
-zoom: 3 // starting zoom
+  container: 'map', // container id
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [-98.5795, 39.8283], // starting position
+  zoom: 3 // starting zoom
 });
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 
-/*var marker = new mapboxgl.Marker()
-.setLngLat([-106.3865, 39.6177])
-.addTo(map);*/
 
-
-
-function dropMarker(longLat) {
-  var marker = new mapboxgl.Marker()
-  .setLngLat(longLat)
-  .addTo(map);
-}
-
-function handleMapIt(longLat) {
-  $('#map-button').click( event => {
+function handleMapIt(responseJson) {
+  console.log('mapit function')
+  console.log(responseJson)
+  const markerNum = {lon: "",
+                lat: ""};
+    for(let i=0; i<responseJson.trails.length; i++){
+      markerNum.lon = responseJson.trails[i].longitude;
+      markerNum.lat = responseJson.trails[i].latitude;
+    }
+    console.log(markerNum);
+  $('#mapit-button').click(event => {
     event.preventDefault();
     console.log('clicked');
-    console.log(longLat)
-    dropMarker(longLat);
-    //getCoordinates();
-});
+    dropMarker(markerNum);
+  });
 }
 
-/*function getCoordinates(long, lat){
-    const long = responseJson.trails.map(trail => trail.longitude)
-    const lat = responseJson.trails.map(trail => trail.latitude)
-    console.log(long, lat)
-    dropMarker(long, lat)
-}*/
 
+function dropMarker(markerNum) {
+  console.log(markerNum)
+  var marker = new mapboxgl.Marker()
+    .setLngLat(markerNum)
+    .addTo(map);
 
-/*function getLocation() {\
-  //const queryString = formatMapParams(params)
-  const url = locationUrl + 'access_token=' + mapKey;
-  fetch(url)
-    .then(response => {
-    then(responseJson => console.log(responseJson))
-    .catch(err => {
-    })
-  })
-}*/
+}
