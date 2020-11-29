@@ -15,7 +15,6 @@ function formatTrailParams(params) {
 }
 
 function displayTrails(responseJson) {
-  console.log(responseJson);
   $('#trail-results').empty();
   $('#trail-results').append(
     responseJson.trails.map(trail =>
@@ -26,7 +25,6 @@ function displayTrails(responseJson) {
         <p class='coordinates'>Coordinates: 
         <button type='button' id='mapit-button'>${trail.latitude} ${trail.longitude}</button></p>`,
     ))
-  //getCoordinates(responseJson);
   handleMapIt(responseJson);
   $('#trail-results').removeClass('hidden');
 };
@@ -57,8 +55,6 @@ function getTrails(latitude, longitude) {
   };
   const queryString = formatTrailParams(params)
   const url = trailUrl + '?' + queryString;
-
-  console.log(url);
 
   fetch(url)
     .then(response => {
@@ -98,7 +94,6 @@ function formatWeatherParams(params) {
 }
 
 function displayWeather(responseJson) {
-  console.log(responseJson);
   getTrails(responseJson.location.lat, responseJson.location.lon);
   if (responseJson.alert !== undefined) {
     $('#weather-results').append(
@@ -126,15 +121,12 @@ function displayWeather(responseJson) {
 };
 
 function getWeather(city) {
-  console.log('getting weather');
   const params = {
     key: weatherKey,
     q: city,
   };
   const queryString = formatWeatherParams(params)
   const url = weatherUrl + '?' + queryString + '&days=3';
-
-  console.log(url);
 
   fetch(url)
     .then(response => {
@@ -168,25 +160,20 @@ map.addControl(new mapboxgl.NavigationControl());
 
 
 function handleMapIt(responseJson) {
-  console.log('mapit function')
-  console.log(responseJson)
   const markerNum = {lon: "",
                 lat: ""};
     for(let i=0; i<responseJson.trails.length; i++){
       markerNum.lon = responseJson.trails[i].longitude;
       markerNum.lat = responseJson.trails[i].latitude;
     }
-    console.log(markerNum);
   $('#mapit-button').click(event => {
     event.preventDefault();
-    console.log('clicked');
     dropMarker(markerNum);
   });
 }
 
 
 function dropMarker(markerNum) {
-  console.log(markerNum)
   var marker = new mapboxgl.Marker()
     .setLngLat(markerNum)
     .addTo(map);
