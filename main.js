@@ -15,6 +15,7 @@ function formatTrailParams(params) {
 }
 
 function displayTrails(responseJson) {
+  console.log(responseJson)
   $('#trail-results').empty();
   $('#trail-results').append(
     responseJson.trails.map(trail =>
@@ -23,11 +24,16 @@ function displayTrails(responseJson) {
         <p>Elevation: ${trail.low}ft to ${trail.high}ft</p>
         <a href="${trail.url}" target="_blank">More Info</a>
         <p class='coordinates'>Coordinates: 
-        <button type='button' id='mapit-button'>${trail.latitude} ${trail.longitude}</button></p>`,
+        <button type='button' id='mapit-button-${trail.name.replace(/\s+/g, "-")}'>${trail.latitude} ${trail.longitude}</button>
+        </p>`,
     ))
-  handleMapIt(responseJson);
+    responseJson.trails.forEach(trail => {
+      handleMapIt(trail)
+    });
   $('#trail-results').removeClass('hidden');
 };
+
+
 
 
 function sortTrails() {
@@ -159,23 +165,23 @@ var map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl());
 
 
-function handleMapIt(responseJson) {
-  const markerNum = {lon: "",
-                lat: ""};
-    for(let i=0; i<responseJson.trails.length; i++){
-      markerNum.lon = responseJson.trails[i].longitude;
-      markerNum.lat = responseJson.trails[i].latitude;
-    }
-  $('#mapit-button').click(event => {
-    event.preventDefault();
-    dropMarker(markerNum);
+
+
+function handleMapIt(trail) {
+  const marker = {lon: trail.longitude,
+                lat: trail.latitude};
+  $('#mapit-button-' + trail.name.replace(/\s+/g, "-")).click(event => {
+    dropMarker(marker);
   });
 }
 
 
-function dropMarker(markerNum) {
+
+
+function dropMarker(marker) {
   var marker = new mapboxgl.Marker()
-    .setLngLat(markerNum)
+    .setLngLat(marker)
     .addTo(map);
 
 }
+
