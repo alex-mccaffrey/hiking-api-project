@@ -24,7 +24,7 @@ function displayTrails(responseJson) {
         <p>Elevation: ${trail.low}ft to ${trail.high}ft</p>
         <a href="${trail.url}" target="_blank">More Info</a>
         <p class='coordinates'>Coordinates: 
-        <button type='button' id='mapit-button-${trail.name.replace(/\s+/g, "-")}'>${trail.latitude} ${trail.longitude}</button>
+        <a href="#map"><button type='button' id="mapit-button-${trail.name.replace(/\s+/g, "-").replace("'", "").replace("/", "-")}">${trail.latitude} ${trail.longitude}</button></a>
         </p>`,
     ))
     responseJson.trails.forEach(trail => {
@@ -170,7 +170,7 @@ map.addControl(new mapboxgl.NavigationControl());
 function handleMapIt(trail) {
   const marker = {lon: trail.longitude,
                 lat: trail.latitude};
-  $('#mapit-button-' + trail.name.replace(/\s+/g, "-")).click(event => {
+  $('#mapit-button-' + trail.name.replace(/\s+/g, "-").replace("'", "").replace("/", "-")).click(event => {
     dropMarker(marker);
   });
 }
