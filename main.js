@@ -15,7 +15,6 @@ function formatTrailParams(params) {
 }
 
 function displayTrails(responseJson) {
-  console.log(responseJson)
   $('#trail-results').empty();
   $('#trail-results').append(
     responseJson.trails.map(trail =>
@@ -25,12 +24,14 @@ function displayTrails(responseJson) {
         <a href="${trail.url}" target="_blank">More Info</a>
         <p class='coordinates'>Coordinates: 
         <a href="#map"><button type='button' id="mapit-button-${trail.name.replace(/\s+/g, "-").replace("'", "").replace("/", "-")}">${trail.latitude} ${trail.longitude}</button></a>
+        <br>(click on coordinates to view location on map)
         </p>`,
     ))
     responseJson.trails.forEach(trail => {
       handleMapIt(trail)
     });
-  $('#trail-results').removeClass('hidden');
+  $('.weather-trails').removeClass('hidden');
+  $('#map').removeClass('hidden');
 };
 
 
@@ -156,12 +157,12 @@ const mapKey = 'pk.eyJ1IjoiYW1jY2FmZjA3IiwiYSI6ImNraHhrYThyeTAyc3oycG4wMG40dW5uZ
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW1jY2FmZjA3IiwiYSI6ImNraHhrYThyeTAyc3oycG4wMG40dW5uZGkifQ.yLgQA1X2chc0tTtVLbUE7Q';
 var map = new mapboxgl.Map({
-  container: 'map', // container id
+  container: 'map',
   style: 'mapbox://styles/mapbox/streets-v11',
-  center: [-98.5795, 39.8283], // starting position
-  zoom: 3 // starting zoom
+  center: [-98.5795, 39.8283],
+  zoom: 3
 });
-// Add zoom and rotation controls to the map.
+
 map.addControl(new mapboxgl.NavigationControl());
 
 
@@ -174,7 +175,6 @@ function handleMapIt(trail) {
     dropMarker(marker);
   });
 }
-
 
 
 
