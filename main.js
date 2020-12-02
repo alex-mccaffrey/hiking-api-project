@@ -3,17 +3,17 @@
 
 /**** Hiking Trails API *****/
 
-
 const trailKey = '200979560-34016932461a258909dfbe882647288f';
 const trailUrl = 'https://www.hikingproject.com/data/get-trails'
 
-
+/* Format the parameters for the url */
 function formatTrailParams(params) {
   const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
 
+/* Display the trail results */
 function displayTrails(responseJson) {
   $('#trail-results').empty();
   $('#trail-results').append(
@@ -36,7 +36,7 @@ function displayTrails(responseJson) {
 
 
 
-
+/* handles input to sort trail results */
 function sortTrails() {
   let selected = $("input[type='radio'][name='sort-trails']:checked");
   let selectedAnswer = "";
@@ -47,7 +47,7 @@ function sortTrails() {
 };
 
 
-
+/* Gathers the data from the API based on the input from the user */
 function getTrails(latitude, longitude) {
   const numTrails = $('#num-results').val();
   const sortBy = sortTrails();
@@ -76,6 +76,7 @@ function getTrails(latitude, longitude) {
     });
 }
 
+/* started the request-response process */
 function trailForm() {
   $('#js-trail-form').submit(event => {
     event.preventDefault();
@@ -88,18 +89,21 @@ $(trailForm());
 
 
 
+
+
 //***** Weather API *******/
 
 const weatherKey = '9fc52be9eec442ba9de25202202011';
 const weatherUrl = 'https://api.weatherapi.com/v1/forecast.json';
 
-
+/* Format the parameters for the url */
 function formatWeatherParams(params) {
   const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
 
+/* Displays weather results based on the location the user entered*/
 function displayWeather(responseJson) {
   getTrails(responseJson.location.lat, responseJson.location.lon);
   if (responseJson.alert !== undefined) {
@@ -127,6 +131,8 @@ function displayWeather(responseJson) {
   $('#weather-results').removeClass('hidden');
 };
 
+
+/* Gathers weather data form API */
 function getWeather(city) {
   const params = {
     key: weatherKey,
@@ -150,6 +156,8 @@ function getWeather(city) {
 
 
 
+
+
 //***** Map API *******//
 const directionsUrl = 'https://api.mapbox.com/directions/v5/mapbox/driving';
 const locationUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/-105.1504,39.8130.json?'
@@ -166,8 +174,7 @@ var map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl());
 
 
-
-
+/* listens for button click to send trail coordinates to the marker function */
 function handleMapIt(trail) {
   const marker = {lon: trail.longitude,
                 lat: trail.latitude};
@@ -177,7 +184,7 @@ function handleMapIt(trail) {
 }
 
 
-
+/* Updates marker coordinates to display new marker on map */
 function dropMarker(marker) {
   var marker = new mapboxgl.Marker()
     .setLngLat(marker)
