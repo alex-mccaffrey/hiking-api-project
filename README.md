@@ -1,4 +1,4 @@
-# Tectonic MVMT - Hiking API Capstone
+# Hiking API Capstone
 
 ## Live link
 Check out a live working version of my web app [here](https://amccaff20.github.io/hiking-api-capstone/).
