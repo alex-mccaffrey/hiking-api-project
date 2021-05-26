@@ -8,7 +8,7 @@ I created Tectonic MVMT to provide a clean and simple way for users to quickly g
 
 ## Welcome Page
 It all starts with a simple interfance where the user can input a location and apply any desired filters.
-![Welcome Page](images/welcome-screenshot.jpeg)
+![Welcome Page](images/welcome-screenshot-new.jpeg)
 ![filters](images/filters-screenshot.jpeg)
 
 
